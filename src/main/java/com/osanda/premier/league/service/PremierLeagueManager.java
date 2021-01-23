@@ -79,14 +79,68 @@ public class PremierLeagueManager implements LeagueManager {
         System.out.printf("%s is not a Premier league club\n",clubName);
     }
 
+    /**
+     *Display all the information about football club elements in leagueTeams List in a table
+     */
     @Override
     public void displayLeagueTable() {
+        Collections.sort(leagueTeams);
+        String alignmentFormat = "| %-11s | %-15s | %-6s | %-4s | %-5s | %-7s | %-6s |\n";
+        System.out.format("                             Primer League table                            \n");
+        System.out.format("+--------------------------------------------------------------------------+\n");
+        System.out.format("| Position    | Name            | Played | Wins | Draws | Defeats | Points |\n");
+        System.out.format("+--------------------------------------------------------------------------+\n");
+
+        for (int i=0;i<leagueTeams.size();i++){
+            System.out.format(alignmentFormat,Integer.toString(i+1),leagueTeams.get(i).getClubName(),
+                    leagueTeams.get(i).getNumberOfMatchesPlayed(),leagueTeams.get(i).getNumberOfWins(),
+                    leagueTeams.get(i).getNumberOfDraws(),+leagueTeams.get(i).getNumberOfDefeats(),
+                    leagueTeams.get(i).getNumberOfPoints());
+
+        }
+        System.out.format("+--------------------------------------------------------------------------+\n");
+    }
+
+    /**
+     * updateStats method called to update update football club instances
+     *
+     * @param match Match instance to be added to matchHistory
+     *              Match instance fields are used to
+     */
+    @Override
+    public void addMatchDetails(Match match){
+        match.setWinner();
+        matchHistory.add(match);
+
+        updateStats(match.getFirstClubName(),match.getWinner(),match.getGoalsByFirstClub(),match.getGoalsBySecondClub());
+        updateStats(match.getSecondClubName(),match.getWinner(),match.getGoalsBySecondClub(),match.getGoalsByFirstClub());
 
     }
 
-    @Override
-    public void addMatchDetails(Match match) {
+    /**
+     * update filed of a single football club instance according to passed arguments
+     *
+     * @param clubName club name of football club instance to be updated
+     * @param winner winning club name of the match
+     * @param goalsScored number of goals scored by one of teams in match
+     * @param goalsReceived number of goals received by one of teams in match
+     */
+    private void updateStats(String clubName,String winner,int goalsScored,int goalsReceived){
+        for(FootballClub club : leagueTeams) {
+            if (club.getClubName().equals(clubName)){
+                if (club.getClubName().equals(winner)){
+                    club.setNumberOfWins(1);
+                    club.setNumberOfPoints(3);
+                } else if (winner.equals("Draw")){
+                    club.setNumberOfDraws(1);
+                    club.setNumberOfPoints(1);
+                } else {club.setNumberOfDefeats(1);}
 
+                club.setNumberOfMatchesPlayed(1);
+                club.setNumberOfGoalsScored(goalsScored);
+                club.setNumberOfGoalsReceived(goalsReceived);
+            }
+        }
     }
 
     @Override
