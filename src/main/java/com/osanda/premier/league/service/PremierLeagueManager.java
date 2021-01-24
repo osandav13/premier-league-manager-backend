@@ -202,4 +202,14 @@ public class PremierLeagueManager implements LeagueManager {
             }
         }
     }
+
+    /** generate a random long number between a range
+     *
+     * @param min inner bound of the range
+     * @param max outer bound of the range
+     * @return
+     */
+    private long randomNumber(long min,long max){
+        return (long)((Math.random() * (max - min))+min);
+    }
 }
