@@ -143,9 +143,26 @@ public class PremierLeagueManager implements LeagueManager {
         }
     }
 
+    /** save all the Football objects inside the leagueTeams list to a file
+     *
+     * @throws IOException if the file is not available or permission issue
+     * @throws FileNotFoundException if the file is not found in the directory
+     */
     @Override
-    public void saveToFile() throws FileNotFoundException, IOException {
-
+    public void saveToFile() throws IOException,FileNotFoundException{
+        try(FileOutputStream fileOut = new FileOutputStream("club save file.ser");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)){
+            for (FootballClub club : leagueTeams){
+                objectOut.writeObject(club);
+            }
+        }
+        try(FileOutputStream fileOut = new FileOutputStream("match save file.ser");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)){
+            for(Match match:matchHistory){
+                objectOut.writeObject(match);
+            }
+        }
+        System.out.println("Data has been saved in club save file.ser and match save file.ser");
     }
 
     @Override
