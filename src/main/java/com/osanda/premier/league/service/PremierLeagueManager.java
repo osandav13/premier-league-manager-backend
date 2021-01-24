@@ -165,8 +165,41 @@ public class PremierLeagueManager implements LeagueManager {
         System.out.println("Data has been saved in club save file.ser and match save file.ser");
     }
 
+    /** Read all the serialized objects from the files and add them
+     *  to leagueTeam and matchHistory lists
+     *
+     * @throws IOException if the file is not available or permission issue
+     * @throws FileNotFoundException if the file is not found in the directory
+     * @throws EOFException if characters in a file has ended
+     * @throws ClassNotFoundException if the matching class doesnt exist in for the serialized object
+     */
     @Override
     public void retrieveFromFile() throws IOException, FileNotFoundException, EOFException, ClassNotFoundException {
-
+        try(FileInputStream fileIn = new FileInputStream("club save file.ser");
+            ObjectInputStream objectInput = new ObjectInputStream(fileIn)){
+            if (leagueTeams.size()>0){leagueTeams.clear();}
+            try{
+                for (;;){
+                    FootballClub club = (FootballClub) objectInput.readObject();
+                    leagueTeams.add(club);
+                }
+            }catch (EOFException exception) {
+                System.out.println("End of the file");
+                System.out.println("all the data has been retrieved from the file");
+            }
+        }
+        try(FileInputStream fileIn = new FileInputStream("match save file.ser");
+            ObjectInputStream objectInput = new ObjectInputStream(fileIn)){
+            if (matchHistory.size()>0){matchHistory.clear();}
+            try{
+                for (;;){
+                    Match match = (Match) objectInput.readObject();
+                    matchHistory.add(match);
+                }
+            }catch (EOFException exception) {
+                System.out.println("End of the file");
+                System.out.println("all the data has been retrieved from the file");
+            }
+        }
     }
 }
