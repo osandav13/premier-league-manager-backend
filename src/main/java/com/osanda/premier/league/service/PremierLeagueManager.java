@@ -212,4 +212,37 @@ public class PremierLeagueManager implements LeagueManager {
     private long randomNumber(long min,long max){
         return (long)((Math.random() * (max - min))+min);
     }
+
+    /** generate a random Match object between two teams that are in the
+     * leagueTeams list used in the GUI
+     *
+     * @return Match object that has been generated with random values
+     */
+    public Match playAMatch(){
+        Match match = null;
+        int numberOfTeamsInLeague = leagueTeams.size();
+        if (numberOfTeamsInLeague < 2){
+            System.out.println("Add more teams to play a match");
+        }else {
+            FootballClub firstTeam;
+            FootballClub secondTeam;
+            do {
+                firstTeam = leagueTeams.get((int) randomNumber(0, numberOfTeamsInLeague));
+                secondTeam = leagueTeams.get((int) randomNumber(0, numberOfTeamsInLeague));
+            } while (firstTeam.equals(secondTeam));
+            int firstTeamScore = (int) randomNumber(0,6);
+            int secondTeamScore = (int) randomNumber(0,6);
+            LocalDate today = LocalDate.now();
+            long startDateNumber = today.toEpochDay();
+            long endDateNumber = today.toEpochDay()-30;
+            long randomDateNumber = randomNumber(startDateNumber,endDateNumber);
+            LocalDate matchDate = LocalDate.ofEpochDay(randomDateNumber);
+            match = new Match(firstTeam.getClubName(),secondTeam.getClubName(),matchDate);
+            match.setGoalsByFirstClub(firstTeamScore);
+            match.setGoalsBySecondClub(secondTeamScore);
+            match.setScore(firstTeamScore + " - " + secondTeamScore);
+            addMatchDetails(match);
+        }
+        return match;
+    }
 }
