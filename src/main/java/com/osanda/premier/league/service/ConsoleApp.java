@@ -35,4 +35,14 @@ public class ConsoleApp {
         FootballClub club = new FootballClub(clubName, location);
         premierLeagueManager.createFootballClub(club);
     }
+
+    /** club name is taken from the console to delete the that club
+     * from the leagueTeams List
+     */
+    private static void insertDeleteClubInfo(){
+        Scanner deleteClubDetails = new Scanner(System.in);
+        System.out.print("Enter ClubName : ");
+        String clubName = deleteClubDetails.nextLine();
+        premierLeagueManager.deleteClub(clubName);
+    }
 }
