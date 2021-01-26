@@ -79,4 +79,38 @@ public class ConsoleApp {
         premierLeagueManager.displayLeagueTable();
     }
 
+    /**
+     * Necessary inputs are taken about the match and added
+     * and relevant premierLeagueManger method is called to add the details
+     */
+    private static void insertMatchDetails(){
+        boolean isDateCorrect;
+        String matchDate;
+
+        Scanner matchDetails = new Scanner(System.in);
+        System.out.print("Enter the first Club name : ");
+        String firstClubName = matchDetails.nextLine();
+        System.out.print("Enter the number of goals scored : ");
+        String firstClubGoals = matchDetails.nextLine();
+        System.out.print("Enter the second club name : ");
+        String secondClubName = matchDetails.nextLine();
+        System.out.print("Enter the number of goals scored : ");
+        String secondClubGoals = matchDetails.nextLine();
+        do {
+            System.out.print("Enter the date(yyyy/mm/dd) : ");
+            matchDate = matchDetails.nextLine();
+            // * date validator is called here
+            isDateCorrect = dateValidator(matchDate);
+        }while (!isDateCorrect);
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("uuuu/M/d");
+        LocalDate date = LocalDate.parse(matchDate,format);
+        Match match = new Match(firstClubName,secondClubName,date);
+        match.setGoalsByFirstClub(Integer.parseInt(firstClubGoals));
+        match.setGoalsBySecondClub(Integer.parseInt(secondClubGoals));
+        match.setScore(firstClubGoals + " - " + secondClubGoals);
+        premierLeagueManager.addMatchDetails(match);
+
+    }
+
 }
