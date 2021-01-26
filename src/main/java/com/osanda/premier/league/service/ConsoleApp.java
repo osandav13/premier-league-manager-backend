@@ -71,4 +71,12 @@ public class ConsoleApp {
             return false;
         }
     }
+
+    /**
+     * premierLeagueManger method is called to display the the league table
+     */
+    private static void displayLeagueTable(){
+        premierLeagueManager.displayLeagueTable();
+    }
+
 }
