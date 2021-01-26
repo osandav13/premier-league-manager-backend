@@ -45,4 +45,30 @@ public class ConsoleApp {
         String clubName = deleteClubDetails.nextLine();
         premierLeagueManager.deleteClub(clubName);
     }
+
+    /**
+     * club name is taken as a input to display the details of the club
+     */
+    private static void insertSelectedClubInfo(){
+        Scanner selectedClub = new Scanner(System.in);
+        System.out.print("Enter the club name : ");
+        String clubName = selectedClub.nextLine();
+        premierLeagueManager.displayStatistics(clubName);
+    }
+
+    /** String is entered to validate to the pattern used in this application
+     *
+     * @param dateToValidate String is passed to validate to a pattern
+     * @return boolean is return according to validity of the date String
+     */
+    private static boolean dateValidator(String dateToValidate){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("uuuu/M/d");
+        try{
+            LocalDate.parse(dateToValidate,format.withResolverStyle(ResolverStyle.STRICT));
+            return true;
+        }catch (DateTimeParseException exception){
+            System.out.println("You have entered a wrong date format");
+            return false;
+        }
+    }
 }
