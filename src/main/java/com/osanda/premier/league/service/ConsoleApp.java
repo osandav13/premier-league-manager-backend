@@ -146,4 +146,16 @@ public class ConsoleApp {
             System.out.println("Cannot find the file");
         }
     }
+
+    /**
+     * Spring boot application start method is called and
+     * GUI execution start here
+     */
+    private static void launchGui(String[]args){
+        if (!isGUILunched){
+            PremierLeagueApplication.startGui(args);
+        }else {
+            System.out.println("GUI is already lunched");
+        }
+    }
 }
