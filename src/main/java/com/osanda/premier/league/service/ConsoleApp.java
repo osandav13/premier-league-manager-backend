@@ -129,4 +129,21 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * premierLeagueManger method called and
+     * all the errors related to reading from file are handed
+     * parent exception and child exceptions are handle differently
+     * provide meaningful error message to user
+     */
+    private static void loadFromFile(){
+        try{
+            premierLeagueManager.retrieveFromFile();
+        }catch (FileNotFoundException exception) {
+            System.out.println("File not found");
+        }catch(ClassNotFoundException exception){
+            System.out.println("Class of retrieving object is not available");
+        }catch (IOException exception){
+            System.out.println("Cannot find the file");
+        }
+    }
 }
