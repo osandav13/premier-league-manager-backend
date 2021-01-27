@@ -113,4 +113,20 @@ public class ConsoleApp {
 
     }
 
+    /**
+     * premierLeagueManger method called and
+     * all the errors related to writing to file are handed
+     * parent exception and child exceptions are handle differently
+     * provide meaningful error message to user
+     */
+    private static void saveToFile(){
+        try{
+            premierLeagueManager.saveToFile();
+        }catch (FileNotFoundException exception) {
+            System.out.println("File not found ");
+        }catch (IOException exception){
+            System.out.println("Cannot find the file");
+        }
+    }
+
 }
