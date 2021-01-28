@@ -158,4 +158,63 @@ public class ConsoleApp {
             System.out.println("GUI is already lunched");
         }
     }
+
+    /**
+     * execution starts here
+     */
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Do you want to continue from previously closed state");
+        System.out.println("Enter your choice(yes/no):");
+        String userChoice = scanner.nextLine().toLowerCase();
+        if (userChoice.equals("yes")){
+            loadFromFile();
+        }
+
+        while (true){
+            System.out.println("Enter A to add a Football to Primer league");
+            System.out.println("Enter D to remove a Football from primer league");
+            System.out.println("Enter F to display statics about a Football club in Primer league");
+            System.out.println("Enter L to display Primer league table");
+            System.out.println("Enter M to add match details");
+            System.out.println("Enter S to save the data");
+            System.out.println("Enter R to retrieve the data");
+            System.out.println("Enter G to load the gui");
+            System.out.println("Enter Q to quit");
+            System.out.print("Enter your selection : ");
+            String userInput = scanner.next().toLowerCase();
+            switch(userInput){
+                case "a":
+                    insertFootballClubInfo();
+                    break;
+                case "d":
+                    insertDeleteClubInfo();
+                    break;
+                case "f":
+                    insertSelectedClubInfo();
+                    break;
+                case "l":
+                    displayLeagueTable();
+                    break;
+                case "m":
+                    insertMatchDetails();
+                    break;
+                case "s":
+                    saveToFile();
+                    break;
+                case "r":
+                    loadFromFile();
+                    break;
+                case "g":
+                    launchGui(args);
+                    break;
+                case "q":
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Your input is not correct");
+                    break;
+            }
+        }
+    }
 }
