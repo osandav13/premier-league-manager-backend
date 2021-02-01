@@ -1,6 +1,6 @@
 package com.osanda.premier.league.service;
 
-//import com.osanda.premier.league.PremierLeagueApplication;
+import com.osanda.premier.league.PremierLeagueApplication;
 import com.osanda.premier.league.model.FootballClub;
 import com.osanda.premier.league.model.Match;
 
