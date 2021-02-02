@@ -52,4 +52,15 @@ public class PremierLeagueController {
         }
 
     }
+
+    /**
+     * GET request to /api/playMatch are served
+     * random match details are provided
+     * @return Match JASON object is returned
+     */
+    @CrossOrigin
+    @GetMapping("/api/playMatch")
+    public Match playMatch(){
+        return premierLeagueManager.playAMatch();
+    }
 }
